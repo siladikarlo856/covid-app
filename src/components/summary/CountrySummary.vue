@@ -1,5 +1,8 @@
 <template>
-  <div class="country-summary-item">
+  <div
+    class="country-summary-item"
+    @click="setActiveCountry(countrySummary.ID)"
+  >
     <h3>{{ countrySummary.Country }}</h3>
     <div class="country-summary-data-container">
       <p>
@@ -14,9 +17,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'CountrySummary',
   props: ['countrySummary'],
+  methods: {
+    ...mapActions(['setActiveCountry']),
+  },
 };
 </script>
 
