@@ -1,9 +1,17 @@
 <template>
-  <div class="global-summary">
-    <h3>Global Summary</h3>
-    <p>Total confirmed case: {{ globalSummary.TotalConfirmed }}</p>
-    <p>Total confirmed deaths: {{ globalSummary.TotalDeaths }}</p>
-    <p>Total confirmed recovered: {{ globalSummary.TotalRecovered }}</p>
+  <div class="global-summary-item">
+    <h2>Global Summary</h2>
+    <div class="global-summary-data">
+      <p>
+        <strong>Total Confirmed:</strong>
+        {{ globalSummary.TotalConfirmed }}
+      </p>
+      <p><strong>Total Deaths:</strong> {{ globalSummary.TotalDeaths }}</p>
+      <p>
+        <strong>Total Recovered:</strong>
+        {{ globalSummary.TotalRecovered }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -15,19 +23,18 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+<style scoped>
+.global-summary-item {
+  border: 1px solid black;
+  width: 40ch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(80, 151, 78);
+  color: white;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.global-summary-data {
+  text-align: left;
 }
 </style>
