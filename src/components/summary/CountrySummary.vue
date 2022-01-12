@@ -17,13 +17,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   name: 'CountrySummary',
   props: ['countrySummary'],
   methods: {
-    ...mapActions(['setActiveCountry']),
+    setActiveCountry(countryId) {
+      this.$store.dispatch('setActiveCountry', countryId);
+      this.$router.push('/byday');
+    },
   },
 };
 </script>
