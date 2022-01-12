@@ -21,12 +21,21 @@ const mutations = {
     state.countriesPerDay = payload;
   },
 };
-
+/* eslint no-param-reassign: ["error", { "props": false }] */
 const actions = {
   getSummary({ commit }) {
     axios
       .get('https://api.covid19api.com/summary')
       .then((response) => {
+        // add "active" property to all items
+        const countriesSummary = response.data.Countries.map((el) => {
+          el.active = false;
+          return el;
+        });
+        // mark first country as active
+        countriesSummary[0].active = true;
+
+        console.log('CS:', countriesSummary);
         commit(types.UPDATE_GLOBAL_SUMMARY, response.data.Global);
         commit(types.UPDATE_COUNTRIES_SUMMARY, response.data.Countries);
       })
