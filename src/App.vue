@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Summary</router-link> |
+    <router-link to="/byday">By Day</router-link>
   </div>
   <router-view />
 </template>
@@ -23,7 +23,11 @@
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: rgba(66, 185, 131, 1);
+    }
+
+    &:hover {
+      color: rgb(66, 185, 131, 0.8);
     }
   }
 }

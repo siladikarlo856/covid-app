@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>COVID-19 app</h1>
+    <img alt="Vue logo" src="../assets/covid_logo.png" style="width: 200px" />
+    <GlobalSummary :globalSummary="globalSummary" />
+    <div class="country-summary-container">
+      <CountrySummary
+        v-for="countrySummary in countriesSummary"
+        :key="countrySummary.ID"
+        :countrySummary="countrySummary"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import GlobalSummary from '@/components/summary/GlobalSummary.vue';
+import CountrySummary from '@/components/summary/CountrySummary.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    GlobalSummary,
+    CountrySummary,
+  },
+  computed: {
+    ...mapGetters(['globalSummary', 'countriesSummary', 'countriesPerDay']),
+  },
+  created() {
+    this.$store.dispatch('getSummary');
   },
 };
 </script>
+
+<style scoped></style>
