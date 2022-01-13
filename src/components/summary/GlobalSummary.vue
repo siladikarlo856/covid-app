@@ -30,7 +30,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(80, 151, 78);
+  background: #50974e;
   color: white;
 }
 
