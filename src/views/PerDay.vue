@@ -68,7 +68,8 @@ export default {
   },
   methods: {
     formatDate(unformatedDate) {
-      return String(unformatedDate).match(/^[\d-]*/)[0];
+      const [year, , month, , day] = String(unformatedDate).match(/(\d*)/g);
+      return `${day}.${month}.${year}`;
     },
   },
 
