@@ -20,14 +20,16 @@
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: rgba(66, 185, 131, 1);
 
     &.router-link-exact-active {
-      color: rgba(66, 185, 131, 1);
+      color: #2c3e50;
+      text-decoration: none;
+      cursor: default;
     }
 
-    &:hover {
-      color: rgb(66, 185, 131, 0.8);
+    &:hover :not(&.router-link-exact-active) {
+      color: rgb(66, 185, 131, 0.7);
     }
   }
 }

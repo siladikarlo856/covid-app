@@ -1,13 +1,18 @@
 <template>
   <div class="home">
     <header>
-      <img alt="Vue logo" src="../assets/covid_logo.png" style="width: 200px" />
-
+      <img
+        src="https://www.un.org/sites/un2.un.org/files/covid-19.svg"
+        alt="Covid Logo"
+        class="covid-logo"
+      />
       <h1>COVID-19 app</h1>
     </header>
+
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
+
     <div class="countries-summary-container">
       <h2>Countries Summary</h2>
       <div class="countries-items">
@@ -43,11 +48,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 header {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .covid-logo {
+    width: 80px;
+    filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
+      brightness(91%) contrast(84%);
+    margin: 10px;
+  }
 }
 
 .global-summary-container {
