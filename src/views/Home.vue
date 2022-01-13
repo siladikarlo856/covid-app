@@ -7,7 +7,6 @@
         src="https://www.un.org/sites/un2.un.org/files/covid-19.svg"
         alt="Covid Logo"
         class="covid-logo"
-        @load="onImgLoaded"
       />
       <h1>COVID-19 app</h1>
     </header>
@@ -56,13 +55,11 @@ export default {
     },
     ...mapGetters(['globalSummary', 'countriesSummary']),
   },
-  methods: {
-    onImgLoaded() {
-      this.loading = false;
-    },
-  },
   created() {
     this.$store.dispatch('getSummary');
+  },
+  updated() {
+    this.loading = false;
   },
 };
 </script>
