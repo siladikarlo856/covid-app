@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../views/Home.vue';
-import ByDay from '../views/ByDay.vue';
+import ByDay from '../views/PerDay.vue';
 
 const routes = [
   {
@@ -10,8 +10,8 @@ const routes = [
     component: Home,
   },
   {
-    path: '/byday',
-    name: 'ByDay',
+    path: '/perday',
+    name: 'PerDay',
     component: ByDay,
   },
 ];

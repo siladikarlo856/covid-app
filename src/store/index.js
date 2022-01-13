@@ -8,7 +8,7 @@ import * as types from './mutation-types';
 const state = {
   globalSummary: {},
   countriesSummary: [],
-  countriesPerDay: [],
+  countryPerDay: [],
 };
 
 const mutations = {
@@ -18,8 +18,8 @@ const mutations = {
   [types.UPDATE_COUNTRIES_SUMMARY](state, payload) {
     state.countriesSummary = payload;
   },
-  [types.UPDATE_COUNTRIES_PER_DAY](state, payload) {
-    state.countriesPerDay = payload;
+  [types.UPDATE_COUNTRY_PER_DAY](state, payload) {
+    state.countryPerDay = payload;
   },
   [types.SET_ACTIVE_COUNTRY](state, payload) {
     console.log('mutation: SET_ACTIVE_COUNTRY payload:', payload);
@@ -52,6 +52,20 @@ const actions = {
         console.log('getSummary error: ', e);
       });
   },
+  getDataPerDay({ commit }) {
+    const country = this.getters.getActiveCountry.Slug;
+    console.log('country: ', country);
+    axios
+      .get(`https://api.covid19api.com/dayone/country/${country}`)
+      .then((response) => {
+        // reverse order
+        const reversedDataPerDay = response.data.reverse();
+        commit(types.UPDATE_COUNTRY_PER_DAY, reversedDataPerDay);
+      })
+      .catch((e) => {
+        console.log('getDataPerDay error: ', e);
+      });
+  },
   setActiveCountry({ commit }, countryId) {
     console.log('action: setActiveCountry id:', countryId);
     commit(types.SET_ACTIVE_COUNTRY, countryId);
@@ -61,7 +75,7 @@ const actions = {
 const getters = {
   globalSummary: (state) => state.globalSummary,
   countriesSummary: (state) => state.countriesSummary,
-  countriesPerDay: (state) => state.countriesPerDay,
+  countryPerDay: (state) => state.countryPerDay,
   getActiveCountry: (state) => {
     return state.countriesSummary.find((country) => country.active);
   },

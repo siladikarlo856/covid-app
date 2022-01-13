@@ -8,13 +8,15 @@
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
-    <div class="country-summary-container">
+    <div class="countries-summary-container">
       <h2>Countries Summary</h2>
-      <CountrySummary
-        v-for="countrySummary in countriesSummary"
-        :key="countrySummary.ID"
-        :countrySummary="countrySummary"
-      />
+      <div class="countries-items">
+        <CountrySummary
+          v-for="countrySummary in countriesSummary"
+          :key="countrySummary.ID"
+          :countrySummary="countrySummary"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +35,7 @@ export default {
     CountrySummary,
   },
   computed: {
-    ...mapGetters(['globalSummary', 'countriesSummary', 'countriesPerDay']),
+    ...mapGetters(['globalSummary', 'countriesSummary']),
   },
   created() {
     this.$store.dispatch('getSummary');
@@ -48,10 +50,15 @@ header {
   justify-content: center;
 }
 
-.country-summary-container,
 .global-summary-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.countries-items {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
 }
 </style>

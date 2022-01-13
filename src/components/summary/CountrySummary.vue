@@ -23,7 +23,7 @@ export default {
   methods: {
     setActiveCountry(countryId) {
       this.$store.dispatch('setActiveCountry', countryId);
-      this.$router.push('/byday');
+      this.$router.push('/perday');
     },
   },
 };
@@ -31,13 +31,16 @@ export default {
 
 <style scoped>
 .country-summary-item {
+  box-sizing: border-box;
   border: 1px solid black;
-  width: 40ch;
+  width: 30ch;
   margin-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.3);
 }
 
 .country-summary-item:hover {
