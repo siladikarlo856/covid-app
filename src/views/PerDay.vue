@@ -1,6 +1,6 @@
 <template>
   <h2>
-    Selected country: <span>{{ getActiveCountry.Country }}</span>
+    Selected country: <span>{{ activeCountry.Country }}</span>
   </h2>
   <div class="filter-container">
     <strong>Filter: </strong>
@@ -61,10 +61,11 @@ export default {
     };
   },
   computed: {
-    getActiveCountry() {
-      return this.$store.getters.getActiveCountry;
-    },
-    ...mapGetters(['countryPerDay']),
+    // without mapGetters
+    // activeCountry() {
+    //   this.$store.getters.activeCountry;
+    // }
+    ...mapGetters(['countryPerDay', 'activeCountry']),
   },
   methods: {
     formatDate(unformatedDate) {
