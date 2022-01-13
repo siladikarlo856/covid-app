@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../views/Home.vue';
-import ByDay from '../views/PerDay.vue';
 
 const routes = [
   {
@@ -12,7 +11,8 @@ const routes = [
   {
     path: '/perday',
     name: 'PerDay',
-    component: ByDay,
+    component: () =>
+      import(/* webpackChunkName: 'perday' */ '../views/PerDay.vue'),
   },
 ];
 

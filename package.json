@@ -16,6 +16,7 @@
     "save-dev": "0.0.1-security",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
+    "vue-spinner": "^1.0.4",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

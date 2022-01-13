@@ -1,10 +1,13 @@
 <template>
-  <div class="home">
+  <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
+
+  <div class="home" v-bind:class="{ active: isActive }">
     <header>
       <img
         src="https://www.un.org/sites/un2.un.org/files/covid-19.svg"
         alt="Covid Logo"
         class="covid-logo"
+        @load="onImgLoaded"
       />
       <h1>COVID-19 app</h1>
     </header>
@@ -33,14 +36,30 @@ import { mapGetters } from 'vuex';
 import GlobalSummary from '@/components/summary/GlobalSummary.vue';
 import CountrySummary from '@/components/summary/CountrySummary.vue';
 
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+
 export default {
   name: 'Home',
+  data() {
+    return {
+      loading: true,
+    };
+  },
   components: {
     GlobalSummary,
     CountrySummary,
+    PulseLoader,
   },
   computed: {
+    isActive() {
+      return !this.loading;
+    },
     ...mapGetters(['globalSummary', 'countriesSummary']),
+  },
+  methods: {
+    onImgLoaded() {
+      this.loading = false;
+    },
   },
   created() {
     this.$store.dispatch('getSummary');
@@ -49,28 +68,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.home {
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
-  .covid-logo {
-    width: 80px;
-    filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
-      brightness(91%) contrast(84%);
-    margin: 10px;
+  display: none;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+
+    .covid-logo {
+      width: 80px;
+      filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
+        brightness(91%) contrast(84%);
+      margin: 10px;
+    }
+  }
+  .global-summary-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInAnimation ease 1.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  .countries-summary-container {
+    .countries-items {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+    }
+    animation: fadeInAnimation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
 }
-
-.global-summary-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.countries-items {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+.active {
+  display: block;
 }
 </style>

@@ -53,7 +53,7 @@ const actions = {
       });
   },
   getDataPerDay({ commit }) {
-    const country = this.getters.getActiveCountry.Slug;
+    const country = this.getters.activeCountry.Slug;
     console.log('country: ', country);
     axios
       .get(`https://api.covid19api.com/dayone/country/${country}`)
@@ -76,7 +76,7 @@ const getters = {
   globalSummary: (state) => state.globalSummary,
   countriesSummary: (state) => state.countriesSummary,
   countryPerDay: (state) => state.countryPerDay,
-  getActiveCountry: (state) => {
+  activeCountry: (state) => {
     return state.countriesSummary.find((country) => country.active);
   },
 };
