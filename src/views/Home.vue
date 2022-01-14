@@ -2,15 +2,6 @@
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
 
   <div class="home" v-bind:class="{ active: isActive }">
-    <header>
-      <img
-        src="https://www.un.org/sites/un2.un.org/files/covid-19.svg"
-        alt="Covid Logo"
-        class="covid-logo"
-      />
-      <h1>COVID-19 app</h1>
-    </header>
-
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
@@ -66,32 +57,8 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  @keyframes fadeInAnimation {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
+  // Hide by default until data is loaded
   display: none;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeInAnimation ease 1s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-
-    .covid-logo {
-      width: 80px;
-      filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
-        brightness(91%) contrast(84%);
-      margin: 10px;
-    }
-  }
   .global-summary-container {
     display: flex;
     flex-direction: column;
@@ -105,6 +72,7 @@ export default {
       display: grid;
       grid-gap: 10px;
       grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+      justify-items: center;
     }
     animation: fadeInAnimation ease 2s;
     animation-iteration-count: 1;
@@ -113,5 +81,14 @@ export default {
 }
 .active {
   display: block;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

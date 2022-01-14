@@ -1,0 +1,47 @@
+/*-----------------------------------*\
+  #RESET
+\*-----------------------------------*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  font: inherit;
+}
+
+img,
+ion-icon {
+  display: block;
+}
+
+a,
+span {
+  display: inline-block;
+}
+
+html {
+  font-family: 'sans-serif';
+  min-height: 100vh;
+}

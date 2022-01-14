@@ -1,12 +1,34 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Summary</router-link> |
-    <router-link to="/perday">By Day</router-link>
-  </div>
+  <header>
+    <img
+      src="https://www.un.org/sites/un2.un.org/files/covid-19.svg"
+      alt="Covid Logo"
+      class="covid-logo"
+    />
+    <h1>COVID-19 app</h1>
+  </header>
   <router-view />
 </template>
 
 <style lang="scss">
+@import './assets/css/reset.css';
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  .covid-logo {
+    width: 80px;
+    filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
+      brightness(91%) contrast(84%);
+    margin: 10px;
+  }
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,22 +37,12 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: rgba(66, 185, 131, 1);
-
-    &.router-link-exact-active {
-      color: #2c3e50;
-      text-decoration: none;
-      cursor: default;
-    }
-
-    &:hover :not(&.router-link-exact-active) {
-      color: rgb(66, 185, 131, 0.7);
-    }
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
