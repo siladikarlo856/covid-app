@@ -3,14 +3,19 @@ import Summary from '../views/Summary.vue';
 import NotFound from '../views/NotFound.vue';
 
 const routes = [
-  {
-    path: '/summary',
-    name: 'Summary',
-    component: Summary,
-  },
+  // {
+  //   path: '/summary',
+  //   name: 'Summary',
+  //   component: Summary,
+  // },
+  // {
+  //   path: '/',
+  //   redirect: '/summary',
+  // },
   {
     path: '/',
-    redirect: '/summary',
+    name: 'Summary',
+    component: Summary,
   },
   {
     path: '/perday/:country',
