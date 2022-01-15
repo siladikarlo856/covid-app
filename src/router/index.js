@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Summary from '../views/Summary.vue';
 import NotFound from '../views/NotFound.vue';
 
+const repoName = '/covid-app';
+
 const routes = [
   // {
   //   path: '/summary',
@@ -14,11 +16,17 @@ const routes = [
   // },
   {
     path: '/',
+    redirect: {
+      name: 'Summary',
+    },
+  },
+  {
+    path: `${repoName}/summary`,
     name: 'Summary',
     component: Summary,
   },
   {
-    path: '/perday/:country',
+    path: `${repoName}/perday/:country`,
     name: 'PerDay',
     // lazy loading route
     component: () =>
@@ -26,7 +34,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: `${repoName}/:pathMatch(.*)*`,
     component: NotFound,
   },
 ];
