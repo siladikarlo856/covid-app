@@ -2,9 +2,8 @@
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
   <div class="container" v-bind:class="{ active: isActive }">
     <div id="nav"><router-link to="/">Back</router-link></div>
-
     <h2>
-      Selected country: <span>{{ activeCountry.Country }}</span>
+      Selected country: <span>{{ selectedCountry.Country }}</span>
     </h2>
     <div class="filter-container">
       <strong class="filter-title">Filter: </strong>
@@ -68,6 +67,7 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 export default {
   name: 'PerDay',
+  props: ['country'],
   data() {
     return {
       checkedConfirmed: true,
@@ -84,10 +84,10 @@ export default {
       return !this.loading;
     },
     // without mapGetters
-    // activeCountry() {
-    //   this.$store.getters.activeCountry;
+    // countryPerDay() {
+    //   this.$store.getters.countryPerDay;
     // }
-    ...mapGetters(['countryPerDay', 'activeCountry']),
+    ...mapGetters(['selectedCountry', 'countryPerDay', 'countries']),
   },
   methods: {
     formatDate(unformatedDate) {
@@ -95,9 +95,26 @@ export default {
       return `${day}.${month}.${year}`;
     },
   },
-
+  beforeCreate() {
+    // if selectedCountry is undefined get country and set selected
+    if (!this.selectedCountry) {
+      this.$store
+        .dispatch('getCountries')
+        .then(() => {
+          const countriesList = this.$store.getters.countries;
+          const selectedCountryObj = countriesList.find(
+            (countryObj) => countryObj.Slug === this.country,
+          );
+          this.$store.dispatch('setSelectedCountry', selectedCountryObj);
+        })
+        .catch((e) => {
+          console.log('PerDay beforeCreated error', e);
+        });
+    }
+  },
   created() {
-    this.$store.dispatch('getDataPerDay');
+    // this.$store.dispatch('getCountries');
+    this.$store.dispatch('getDataPerDay', this.country);
   },
   updated() {
     this.loading = false;

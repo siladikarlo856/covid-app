@@ -13,11 +13,12 @@ const routes = [
     redirect: '/summary',
   },
   {
-    path: '/perday',
+    path: '/perday/:country',
     name: 'PerDay',
     // lazy loading route
     component: () =>
       import(/* webpackChunkName: 'perday' */ '../views/PerDay.vue'),
+    props: true,
   },
   {
     path: '/:pathMatch(.*)*',

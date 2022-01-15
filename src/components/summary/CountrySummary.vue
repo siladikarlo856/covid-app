@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="country-summary-item"
-    @click="setActiveCountry(countrySummary.ID)"
-  >
+  <div class="country-summary-item" @click="openCountryPerDay(countrySummary)">
     <h3 class="card-title">{{ countrySummary.Country }}</h3>
     <div class="country-summary-data">
       <p>
@@ -21,9 +18,9 @@ export default {
   name: 'CountrySummary',
   props: ['countrySummary'],
   methods: {
-    setActiveCountry(countryId) {
-      this.$store.dispatch('setActiveCountry', countryId);
-      this.$router.push('/perday');
+    openCountryPerDay(countrySummaryObj) {
+      this.$store.dispatch('setSelectedCountry', countrySummaryObj);
+      this.$router.push(`/perday/${countrySummaryObj.Slug}`);
     },
   },
 };
