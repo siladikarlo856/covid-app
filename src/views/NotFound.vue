@@ -3,7 +3,7 @@
     <h1>Sorry. Page Not Found :(</h1>
     <p>
       <!-- eslint-disable-next-line vue/no-parsing-error -->
-      Use
+      Please go back or use
       <router-link to="/summary" class="hyperlink-text">THIS LINK</router-link>
       to navigate on summary page
     </p>

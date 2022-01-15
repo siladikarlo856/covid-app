@@ -113,7 +113,6 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch('getCountries');
     this.$store.dispatch('getDataPerDay', this.country);
   },
   updated() {
