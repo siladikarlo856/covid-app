@@ -1,7 +1,7 @@
 <template>
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
 
-  <div class="home" v-bind:class="{ active: isActive }">
+  <div class="summary" v-bind:class="{ active: isActive }">
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
@@ -29,7 +29,7 @@ import CountrySummary from '@/components/summary/CountrySummary.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 export default {
-  name: 'Home',
+  name: 'Summary',
   data() {
     return {
       loading: true,
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
+.summary {
   // Hide by default until data is loaded
   display: none;
   .global-summary-container {
