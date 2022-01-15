@@ -1,6 +1,6 @@
 <template>
   <div class="global-summary-item">
-    <h2>Global Summary</h2>
+    <h2 class="card-title">Global Summary</h2>
     <div class="global-summary-data">
       <p>
         <strong>Total Confirmed:</strong>
@@ -23,18 +23,22 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .global-summary-item {
-  border: 1px solid black;
-  width: 40ch;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #50974e;
   color: white;
-}
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
 
-.global-summary-data {
-  text-align: left;
+  .card-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .global-summary-data {
+    text-align: left;
+  }
 }
 </style>

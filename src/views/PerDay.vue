@@ -1,35 +1,44 @@
 <template>
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
   <div class="container" v-bind:class="{ active: isActive }">
+    <div id="nav"><router-link to="/">Back</router-link></div>
     <h2>
-      Selected country: <span>{{ activeCountry.Country }}</span>
+      Selected country: <span>{{ selectedCountry.Country }}</span>
     </h2>
     <div class="filter-container">
-      <strong>Filter: </strong>
-      <input
-        type="checkbox"
-        id="confirmed"
-        name="confirmed"
-        v-model="checkedConfirmed"
-        checked
-      />
-      <label for="confirmed">Confirmed</label>
-      <input
-        type="checkbox"
-        id="deaths"
-        name="deaths"
-        v-model="checkedDeaths"
-        checked
-      />
-      <label for="deaths">Deaths</label>
-      <input
-        type="checkbox"
-        id="recovered"
-        name="recovered"
-        v-model="checkedRecovered"
-        checked
-      />
-      <label for="recovered">Recovered</label>
+      <strong class="filter-title">Filter: </strong>
+      <div class="checkboxes-container">
+        <div class="checkbox-container">
+          <input
+            type="checkbox"
+            id="confirmed"
+            name="confirmed"
+            v-model="checkedConfirmed"
+            checked
+          />
+          <label for="confirmed">Confirmed</label>
+        </div>
+        <div class="checkbox-container">
+          <input
+            type="checkbox"
+            id="deaths"
+            name="deaths"
+            v-model="checkedDeaths"
+            checked
+          />
+          <label for="deaths">Deaths</label>
+        </div>
+        <div class="checkbox-container">
+          <input
+            type="checkbox"
+            id="recovered"
+            name="recovered"
+            v-model="checkedRecovered"
+            checked
+          />
+          <label for="recovered">Recovered</label>
+        </div>
+      </div>
     </div>
     <div class="table-container">
       <table>
@@ -58,6 +67,7 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 export default {
   name: 'PerDay',
+  props: ['country'],
   data() {
     return {
       checkedConfirmed: true,
@@ -74,10 +84,10 @@ export default {
       return !this.loading;
     },
     // without mapGetters
-    // activeCountry() {
-    //   this.$store.getters.activeCountry;
+    // countryPerDay() {
+    //   this.$store.getters.countryPerDay;
     // }
-    ...mapGetters(['countryPerDay', 'activeCountry']),
+    ...mapGetters(['selectedCountry', 'countryPerDay', 'countries']),
   },
   methods: {
     formatDate(unformatedDate) {
@@ -85,9 +95,25 @@ export default {
       return `${day}.${month}.${year}`;
     },
   },
-
+  beforeCreate() {
+    // if selectedCountry is undefined get country and set selected
+    if (!this.selectedCountry) {
+      this.$store
+        .dispatch('getCountries')
+        .then(() => {
+          const countriesList = this.$store.getters.countries;
+          const selectedCountryObj = countriesList.find(
+            (countryObj) => countryObj.Slug === this.country,
+          );
+          this.$store.dispatch('setSelectedCountry', selectedCountryObj);
+        })
+        .catch((e) => {
+          console.log('PerDay beforeCreated error', e);
+        });
+    }
+  },
   created() {
-    this.$store.dispatch('getDataPerDay');
+    this.$store.dispatch('getDataPerDay', this.country);
   },
   updated() {
     this.loading = false;
@@ -96,12 +122,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+#nav {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  a {
+    font-weight: bold;
+    color: rgba(66, 185, 131, 1);
+
+    &:hover {
+      color: rgb(66, 185, 131, 0.7);
+    }
   }
 }
 
@@ -111,20 +142,45 @@ export default {
     span {
       font-weight: 400;
     }
+    margin-bottom: 2rem;
+    // Animation
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
 
   .filter-container {
-    margin: 2rem;
-    input {
-      margin-left: 1rem;
-    }
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 
     animation: fadeInAnimation ease 1.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+
+    .filter-title {
+      margin-left: 0;
+    }
+
+    .checkboxes-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      @media (max-width: 400px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .checkbox-container {
+      margin-left: 1rem;
+      label {
+        margin-left: 0.5rems;
+      }
+    }
   }
   .table-container {
     display: flex;
@@ -143,9 +199,27 @@ export default {
     animation: fadeInAnimation ease 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+    @media (max-width: 400px) {
+      padding: 5px;
+      font-size: 0.8rem;
+    }
+    @media (max-width: 320px) {
+      td {
+        padding: 5px;
+      }
+    }
   }
 }
 .active {
   display: block;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

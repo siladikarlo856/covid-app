@@ -1,18 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-import Home from '../views/Home.vue';
+import Summary from '../views/Summary.vue';
+import NotFound from '../views/NotFound.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
+    path: '/summary',
+    name: 'Summary',
+    component: Summary,
   },
   {
-    path: '/perday',
+    path: '/',
+    redirect: '/summary',
+  },
+  {
+    path: '/perday/:country',
     name: 'PerDay',
+    // lazy loading route
     component: () =>
       import(/* webpackChunkName: 'perday' */ '../views/PerDay.vue'),
+    props: true,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFound,
   },
 ];
 
