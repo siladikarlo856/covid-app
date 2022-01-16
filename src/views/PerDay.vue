@@ -1,7 +1,7 @@
 <template>
   <div id="nav"><router-link to="/">Back</router-link></div>
-  <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
-  <div class="container" v-if="!loading">
+  <pulse-loader :loading="isLoading" :color="color" :size="size" />
+  <div class="container" v-if="!isLoading">
     <h2>
       Selected country: <span>{{ selectedCountry.Country }}</span>
     </h2>
@@ -67,13 +67,13 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 export default {
   name: 'PerDay',
-  props: ['country'],
+  props: ['countrySlug'],
   data() {
     return {
       checkedConfirmed: true,
       checkedDeaths: true,
       checkedRecovered: true,
-      loading: true,
+      isLoading: true,
     };
   },
   components: {
@@ -87,21 +87,30 @@ export default {
     ...mapGetters(['selectedCountry', 'countryPerDay', 'countries']),
   },
   methods: {
+    /**
+     * Format date from "yyyy-mm-ddThh:mm:ssZ" to "dd.mm.yyyy"
+     * e.g. "2020-02-25T00:00:00Z" to 25.02.2020
+     * @param   {String}unformatedDate  Unformated date - "yyyy-mm-ddThh:mm:ssZ"
+     * @return  {String}                Formated date - "dd.mm.yyyy"
+     */
     formatDate(unformatedDate) {
+      // destructuring data from regex match function
       const [year, , month, , day] = String(unformatedDate).match(/(\d*)/g);
       return `${day}.${month}.${year}`;
     },
   },
   beforeCreate() {
-    // If selectedCountry is undefined get countries list,
-    // find selected and set selectedCountry in store
+    /**
+     * If selectedCountry is undefined get countries list,
+     * find selected from the list and set selectedCountry in store
+     */
     if (!this.selectedCountry) {
       this.$store
         .dispatch('getCountries')
         .then(() => {
           const countriesList = this.$store.getters.countries;
           const selectedCountryObj = countriesList.find(
-            (countryObj) => countryObj.Slug === this.country,
+            (countryObj) => countryObj.Slug === this.countrySlug,
           );
           this.$store.dispatch('setSelectedCountry', selectedCountryObj);
         })
@@ -114,10 +123,10 @@ export default {
   },
   created() {
     this.$store
-      .dispatch('getDataPerDay', this.country)
+      .dispatch('getDataPerDay', this.countrySlug)
       .then(() => {
         // Data are fetched. Hide loader and display data.
-        this.loading = false;
+        this.isLoading = false;
       })
       .catch((error) => {
         // Log error message and show "NotFound" page.

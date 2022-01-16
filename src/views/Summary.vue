@@ -1,7 +1,7 @@
 <template>
-  <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
+  <pulse-loader :loading="isLoading" :color="color" :size="size" />
 
-  <div class="summary-container" v-if="!loading">
+  <div class="summary-container" v-if="!isLoading">
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
@@ -32,7 +32,7 @@ export default {
   name: 'Summary',
   data() {
     return {
-      loading: true,
+      isLoading: true,
     };
   },
   components: {
@@ -48,7 +48,7 @@ export default {
       .dispatch('getSummary')
       .then(() => {
         // Data are fetched. Hide loader and display data.
-        this.loading = false;
+        this.isLoading = false;
       })
       .catch((error) => {
         // Log error message and show "NotFound" page.

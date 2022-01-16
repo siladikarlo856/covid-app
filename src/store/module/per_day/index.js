@@ -18,6 +18,12 @@ const mutations = {
 };
 
 const actions = {
+  /**
+   *  Request list of countries from API and commit store mutation.
+   *
+   * @param {object} context    Exposes set of methods/properties (commit, state, getters, dispatch) on the store instance.
+   * @returns {Promise<number>} Return promise together with response status.
+   */
   getCountries({ commit }) {
     return axios
       .get(`${process.env.VUE_APP_COVID_API_BASE_URL}/countries`)
@@ -30,6 +36,12 @@ const actions = {
         return Promise.reject(error);
       });
   },
+  /**
+   *  Request list of cases per country per day from API and commit store mutation.
+   *
+   * @param {object} context    Exposes set of methods/properties (commit, state, getters, dispatch) on the store instance.
+   * @returns {Promise<number>} Return promise together with response status.
+   */
   getDataPerDay({ commit }, countrySlug) {
     return axios
       .get(

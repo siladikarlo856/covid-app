@@ -3,15 +3,6 @@ import Summary from '../views/Summary.vue';
 import NotFound from '../views/NotFound.vue';
 
 const routes = [
-  // {
-  //   path: '/summary',
-  //   name: 'Summary',
-  //   component: Summary,
-  // },
-  // {
-  //   path: '/',
-  //   redirect: '/summary',
-  // },
   {
     path: '/',
     redirect: {
@@ -24,7 +15,7 @@ const routes = [
     component: Summary,
   },
   {
-    path: `/${process.env.VUE_APP_REPO_NAME}/perday/:country`,
+    path: `/${process.env.VUE_APP_REPO_NAME}/perday/:countrySlug`,
     name: 'PerDay',
     // lazy loading route
     component: () =>

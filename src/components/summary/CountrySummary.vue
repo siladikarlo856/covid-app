@@ -18,6 +18,11 @@ export default {
   name: 'CountrySummary',
   props: ['countrySummary'],
   methods: {
+    /**
+     * Set selected country and open data per day view
+     *
+     * @param {object}countrySummaryObj   Country object with Country and Slug property
+     */
     openCountryPerDay(countrySummaryObj) {
       this.$store.dispatch('setSelectedCountry', countrySummaryObj);
       this.$router.push(
