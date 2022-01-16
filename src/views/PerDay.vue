@@ -1,7 +1,7 @@
 <template>
+  <div id="nav"><router-link to="/">Back</router-link></div>
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
   <div class="container" v-bind:class="{ active: isActive }">
-    <div id="nav"><router-link to="/">Back</router-link></div>
     <h2>
       Selected country: <span>{{ selectedCountry.Country }}</span>
     </h2>
