@@ -1,7 +1,7 @@
 <template>
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
 
-  <div class="summary" v-bind:class="{ active: isActive }">
+  <div class="summary-container" v-if="!loading">
     <div class="global-summary-container">
       <GlobalSummary :globalSummary="globalSummary" />
     </div>
@@ -41,24 +41,26 @@ export default {
     PulseLoader,
   },
   computed: {
-    isActive() {
-      return !this.loading;
-    },
     ...mapGetters(['globalSummary', 'countriesSummary']),
   },
   created() {
-    this.$store.dispatch('getSummary');
-  },
-  updated() {
-    this.loading = false;
+    this.$store
+      .dispatch('getSummary')
+      .then(() => {
+        // Data are fetched. Hide loader and display data.
+        this.loading = false;
+      })
+      .catch((error) => {
+        // Log error message and show "NotFound" page.
+        this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
+        console.log('Summary created() getSummary error: ', error);
+      });
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.summary {
-  // Hide by default until data is loaded
-  display: none;
+.summary-container {
   .global-summary-container {
     display: flex;
     flex-direction: column;
@@ -77,10 +79,11 @@ export default {
     animation: fadeInAnimation ease 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
   }
-}
-.active {
-  display: block;
 }
 
 @keyframes fadeInAnimation {

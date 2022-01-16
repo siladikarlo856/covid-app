@@ -20,23 +20,29 @@ const mutations = {
 const actions = {
   getCountries({ commit }) {
     return axios
-      .get('https://api.covid19api.com/countries')
+      .get(`${process.env.VUE_APP_COVID_API_BASE_URL}/countries`)
       .then((response) => {
         commit(types.UPDATE_COUNTRIES, response.data);
+        return Promise.resolve(response.status);
       })
-      .catch((e) => {
-        console.log('getCountries error: ', e);
+      .catch((error) => {
+        console.log('getCountries error: ', error);
+        return Promise.reject(error);
       });
   },
   getDataPerDay({ commit }, countrySlug) {
-    axios
-      .get(`https://api.covid19api.com/dayone/country/${countrySlug}`)
+    return axios
+      .get(
+        `${process.env.VUE_APP_COVID_API_BASE_URL}/dayone/country/${countrySlug}`,
+      )
       .then((response) => {
-        // store data in reverse order
+        // Stores data in reverse order to show latest date first.
         commit(types.UPDATE_COUNTRY_PER_DAY, response.data.reverse());
+        return Promise.resolve(response.status);
       })
-      .catch((e) => {
-        console.log('getDataPerDay error: ', e);
+      .catch((error) => {
+        console.log('getDataPerDay error: ', error);
+        return Promise.reject(error.response.status);
       });
   },
 };

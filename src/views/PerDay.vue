@@ -1,7 +1,7 @@
 <template>
   <div id="nav"><router-link to="/">Back</router-link></div>
   <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
-  <div class="container" v-bind:class="{ active: isActive }">
+  <div class="container" v-if="!loading">
     <h2>
       Selected country: <span>{{ selectedCountry.Country }}</span>
     </h2>
@@ -80,10 +80,7 @@ export default {
     PulseLoader,
   },
   computed: {
-    isActive() {
-      return !this.loading;
-    },
-    // without mapGetters
+    // Without mapGetters we can use getters from store like this.
     // countryPerDay() {
     //   this.$store.getters.countryPerDay;
     // }
@@ -96,7 +93,8 @@ export default {
     },
   },
   beforeCreate() {
-    // if selectedCountry is undefined get country and set selected
+    // If selectedCountry is undefined get countries list,
+    // find selected and set selectedCountry in store
     if (!this.selectedCountry) {
       this.$store
         .dispatch('getCountries')
@@ -107,16 +105,25 @@ export default {
           );
           this.$store.dispatch('setSelectedCountry', selectedCountryObj);
         })
-        .catch((e) => {
-          console.log('PerDay beforeCreated error', e);
+        .catch((error) => {
+          // Show error message. "NotFound" page will be used.
+          this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
+          console.log('PerDay beforeCreated error', error);
         });
     }
   },
   created() {
-    this.$store.dispatch('getDataPerDay', this.country);
-  },
-  updated() {
-    this.loading = false;
+    this.$store
+      .dispatch('getDataPerDay', this.country)
+      .then(() => {
+        // Data are fetched. Hide loader and display data.
+        this.loading = false;
+      })
+      .catch((error) => {
+        // Log error message and show "NotFound" page.
+        this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
+        console.log('PerDay created() getDataPerDay error: ', error);
+      });
   },
 };
 </script>
@@ -137,7 +144,6 @@ export default {
 }
 
 .container {
-  display: none;
   h2 {
     span {
       font-weight: 400;
@@ -209,9 +215,6 @@ export default {
       }
     }
   }
-}
-.active {
-  display: block;
 }
 
 @keyframes fadeInAnimation {
