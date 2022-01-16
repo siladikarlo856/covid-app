@@ -107,7 +107,7 @@ export default {
         })
         .catch((error) => {
           // Show error message. "NotFound" page will be used.
-          this.$router.push(`/covid-app/error`);
+          this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
           console.log('PerDay beforeCreated error', error);
         });
     }
@@ -121,7 +121,7 @@ export default {
       })
       .catch((error) => {
         // Log error message and show "NotFound" page.
-        this.$router.push(`/covid-app/error`);
+        this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
         console.log('PerDay created() getDataPerDay error: ', error);
       });
   },

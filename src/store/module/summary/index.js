@@ -24,7 +24,7 @@ const mutations = {
 const actions = {
   getSummary({ commit }) {
     return axios
-      .get('https://api.covid19api.com/summary')
+      .get(`${process.env.VUE_APP_COVID_API_BASE_URL}/summary`)
       .then((response) => {
         // commit mutations
         commit(types.UPDATE_GLOBAL_SUMMARY, response.data.Global);

@@ -20,7 +20,7 @@ const mutations = {
 const actions = {
   getCountries({ commit }) {
     return axios
-      .get('https://api.covid19api.com/countries')
+      .get(`${process.env.VUE_APP_COVID_API_BASE_URL}/countries`)
       .then((response) => {
         commit(types.UPDATE_COUNTRIES, response.data);
         return Promise.resolve(response.status);
@@ -32,7 +32,9 @@ const actions = {
   },
   getDataPerDay({ commit }, countrySlug) {
     return axios
-      .get(`https://api.covid19api.com/dayone/country/${countrySlug}`)
+      .get(
+        `${process.env.VUE_APP_COVID_API_BASE_URL}/dayone/country/${countrySlug}`,
+      )
       .then((response) => {
         // Stores data in reverse order to show latest date first.
         commit(types.UPDATE_COUNTRY_PER_DAY, response.data.reverse());

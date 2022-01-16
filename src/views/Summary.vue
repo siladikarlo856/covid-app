@@ -52,7 +52,7 @@ export default {
       })
       .catch((error) => {
         // Log error message and show "NotFound" page.
-        this.$router.push(`/covid-app/error`);
+        this.$router.push(`/${process.env.VUE_APP_REPO_NAME}/error`);
         console.log('Summary created() getSummary error: ', error);
       });
   },

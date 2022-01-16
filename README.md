@@ -11,7 +11,6 @@ This is a vue.js single-page application that displays current data on the Coron
 - [Project setup](#project-setup)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
@@ -108,10 +107,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - CSS Grid
 - Responsive design
 - GitHub Actions - CI/CD - build, test, and deploy your code right from GitHub
-
-### What I learned
-
-- I learned how to use curl and Postman during development using REST API
 
 ### Continued development
 
