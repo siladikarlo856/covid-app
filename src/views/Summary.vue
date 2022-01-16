@@ -77,6 +77,10 @@ export default {
     animation: fadeInAnimation ease 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
   }
 }
 .active {

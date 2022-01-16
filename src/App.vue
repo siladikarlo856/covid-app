@@ -25,7 +25,7 @@ header {
     width: 80px;
     filter: invert(51%) sepia(50%) saturate(471%) hue-rotate(70deg)
       brightness(91%) contrast(84%);
-    margin: 10px;
+    margin: 0 10px;
   }
 }
 
