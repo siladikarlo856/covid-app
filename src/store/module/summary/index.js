@@ -23,15 +23,17 @@ const mutations = {
 
 const actions = {
   getSummary({ commit }) {
-    axios
+    return axios
       .get('https://api.covid19api.com/summary')
       .then((response) => {
         // commit mutations
         commit(types.UPDATE_GLOBAL_SUMMARY, response.data.Global);
         commit(types.UPDATE_COUNTRIES_SUMMARY, response.data.Countries);
+        return Promise.resolve(response.status);
       })
-      .catch((e) => {
-        console.log('getSummary error: ', e);
+      .catch((error) => {
+        console.log('getSummary error: ', error);
+        return Promise.reject(error.response.status);
       });
   },
   setSelectedCountry({ commit }, countryObj) {

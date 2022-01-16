@@ -107,16 +107,25 @@ export default {
           );
           this.$store.dispatch('setSelectedCountry', selectedCountryObj);
         })
-        .catch((e) => {
-          console.log('PerDay beforeCreated error', e);
+        .catch((error) => {
+          // Show error message. "NotFound" page will be used.
+          this.$router.push(`/covid-app/error`);
+          console.log('PerDay beforeCreated error', error);
         });
     }
   },
   created() {
-    this.$store.dispatch('getDataPerDay', this.country);
-  },
-  updated() {
-    this.loading = false;
+    this.$store
+      .dispatch('getDataPerDay', this.country)
+      .then(() => {
+        // Hide loader and show data
+        this.loading = false;
+      })
+      .catch((error) => {
+        // Show error message. "NotFound" page will be used.
+        this.$router.push(`/covid-app/error`);
+        console.log('PerDay created() getDataPerDay error: ', error);
+      });
   },
 };
 </script>
