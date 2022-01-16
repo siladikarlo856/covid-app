@@ -152,34 +152,6 @@ Possible updates:
 
 ## Acknowledgments
 
+- [Fullstack Vue3](https://www.newline.co/vue) - The Complete Guide to Vue.js by Hassan Djirdeh
 - MDN Web Docs
-- W3 schools
-- Kevin Powell CSS Youtube channel
-
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- W3 schools -[CSS by Kevin Powell](https://www.youtube.com/kevinpowell) - YouTube channel - Helping you write css with confidence
