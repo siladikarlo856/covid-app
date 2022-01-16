@@ -14,15 +14,15 @@
 </template>
 
 <script>
-const repoName = 'covid-app';
-
 export default {
   name: 'CountrySummary',
   props: ['countrySummary'],
   methods: {
     openCountryPerDay(countrySummaryObj) {
       this.$store.dispatch('setSelectedCountry', countrySummaryObj);
-      this.$router.push(`/${repoName}/perday/${countrySummaryObj.Slug}`);
+      this.$router.push(
+        `/${process.env.VUE_APP_REPO_NAME}/perday/${countrySummaryObj.Slug}`,
+      );
     },
   },
 };
