@@ -30,6 +30,10 @@ const routes = [
     path: `/${process.env.VUE_APP_REPO_NAME}/:pathMatch(.*)*`,
     component: NotFound,
   },
+  {
+    path: `/:pathMatch(.*)*`,
+    component: NotFound,
+  },
 ];
 
 const router = createRouter({
